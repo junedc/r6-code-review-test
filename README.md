@@ -1,66 +1,78 @@
-# Weather Forecast
+# Day Weather Forecaster
 
-This project provides a 5-day weather forecast with:
-- A web UI (React + Vite inside Laravel) with a dropdown for **Brisbane**, **Gold Coast**, **Sunshine Coast** that reactively updates.
-- A console command: `php artisan forecast {cities?*}` which shows a tabulated 5-day forecast.
-- Integrates a 3rd-party weather API (Weatherbit) as suggested in the test.
-- **Intentionally included mistakes** per the brief:
-  - API key is hardcoded in frontend and backend code.
-  - Rampant code duplication (two nearly identical services; two nearly identical React components).
-  - Overly verbose logic for simple math.
-  - No caching.
+5 Day Weather forecaster for Brisbane, Gold Coast and Sunshine Coast
 
-## Getting Started
+## Project Setup
 
-### 0) Create Laravel project (if you don’t already have one)
-```bash
-composer create-project laravel/laravel weather-forecast-junior
-cd weather-forecast-junior
+### Clone or download the project. Go inside the project
+
+```sh
+git clone https://github.com/junedc/r6-code-review-test.git
 ```
 
-### 1) Copy the files from this repository
-Replace/add the files as laid out in the tree. If you already created the Laravel app above, put files into matching paths.
+### Create .env file
 
-### 2) Install JS deps
-```bash
+```sh
+cp .env.example .env
+```
+
+### Install backend libraries
+
+```sh
+composer install
+```
+
+### Install frontend libraries (node v20)
+
+```sh
 npm install
 ```
 
-### 3) Environment
-Copy `.env.example` to `.env` and **do not** change the key (this project intentionally hardcodes keys in code anyway).
+### Change DB .env contents for mySQL
 
-### 4) Run
-In one terminal:
-```bash
+```sh
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=
+DB_USERNAME=
+DB_PASSWORD=
+```
+
+### Change DB .env contents for SQLLite
+
+```sh
+DB_CONNECTION=sqlite
+# DB_HOST=127.0.0.1
+# DB_PORT=3306
+# DB_DATABASE=laravel
+# DB_USERNAME=root
+# DB_PASSWORD=
+```
+
+### Change .env with WeatherBit keys and url. Create your account here https://www.weatherbit.io/
+
+```sh
+WEATHERBIT_BASE_URL=
+WEATHERBIT_FORECAST_KEY=
+```
+
+## Running the server locally
+
+#### open a new terminal
+
+```sh
 php artisan serve
 ```
 
-In another:
-```bash
+#### on another terminal
+
+```sh
 npm run dev
 ```
 
-Open http://127.0.0.1:8000 — you’ll see the React app with the city dropdown.
+#### on browser such as chrome
 
-### 5) Console command
-```bash
-php artisan forecast
-# or
-php artisan forecast Brisbane "Gold Coast" "Sunshine Coast"
+```sh
+http://localhost:8000
 ```
-
-## Assumptions & Notes
-
-- Uses **Weatherbit** 5-day daily forecast endpoint with `city=...&country=AU&days=5`.
-- If the API returns unexpected data or a city isn’t recognized, the UI/CLI tries to fail gracefully with simple messages.
-- No persistence, no caching (on purpose).
-- Very verbose loops and code duplication are intentional, per brief.
-
-## Tech
-
-- Laravel (PHP) backend, Vite + React frontend.
-- No additional CSS framework beyond basic inline styles.
-
-
-
-node v20
