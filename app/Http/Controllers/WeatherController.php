@@ -2,13 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Services\WeatherService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 class WeatherController extends Controller
 {
-    public function getDailyForecast() {
-        Log::info('it was hit here');
+    public function getDailyForecast(Request $request): array
+    {
+        $data = $request->all();
+        $city = data_get($data, 'city');
+
+        $weatherService = new WeatherService();
+        return $weatherService->fetchFiveDayForecast($city);
     }
 
 }

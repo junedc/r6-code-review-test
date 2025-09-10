@@ -6,8 +6,6 @@ use Illuminate\Support\Facades\Http;
 
 class WeatherService
 {
-    private $apiKey = '12354651';
-    private $baseUrl = 'https://api.weatherbit.io/v2.0/forecast/daily';
 
     public function fetchFiveDayForecast(string $city): array
     {
