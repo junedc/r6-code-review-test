@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Weather Forecast Junior</title>
+    <title>Weather Forecast</title>
     @viteReactRefresh
     @vite('resources/js/app.jsx')
     <meta name="viewport" content="width=device-width, initial-scale=1">
