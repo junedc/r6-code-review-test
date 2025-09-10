@@ -4,10 +4,11 @@
 
 ## Project Setup
 
-### Clone or download the project. Go inside the project
+### Clone or download the project and  go inside the project
 
 ```sh
 git clone https://github.com/junedc/r6-code-review-test.git
+cd r6-code-review-test.git
 ```
 
 ### Create .env file
