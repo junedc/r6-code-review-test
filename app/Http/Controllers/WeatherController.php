@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Services\WeatherService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class WeatherController extends Controller
 {
@@ -13,12 +12,6 @@ class WeatherController extends Controller
         $data = $request->all();
         $city = data_get($data, 'city');
 
-        $weatherService = new WeatherService();
-        return $weatherService->fetchFiveDayForecast($city);
-    }
-
-    public function getDailyForecast($city): array
-    {
         $weatherService = new WeatherService();
         return $weatherService->fetchFiveDayForecast($city);
     }

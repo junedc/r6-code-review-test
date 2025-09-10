@@ -18,12 +18,10 @@ class ForecastCommand extends Command
         if (empty($cities)) {
             $this->info('No cities provided. Please enter a comma-separated list (e.g., Brisbane, Gold Coast, Sunshine Coast).');
             $input = $this->ask('Cities');
-            $cities = array_map('trim', explode(',', (string) $input));
+            $cities = array_map('trim', explode(',', (string)$input));
         }
 
-
         $service = new WeatherService();
-
         $header = ['City', 'Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5'];
         $this->line(implode("\t", $header));
 
