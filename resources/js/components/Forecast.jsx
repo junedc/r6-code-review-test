@@ -9,11 +9,17 @@ async function fetchDirectFromWeatherbit(city) {
     if (city.toLowerCase() === 'goldcoast') c = 'Gold Coast'
     if (city.toLowerCase() === 'sunshinecoast') c = 'Sunshine Coast'
 
-
     const url = `${WEATHERBIT_BASE_URL}?city=${encodeURIComponent(c)},AU&days=5&key=${encodeURIComponent(WEATHERBIT_API_KEY)}`
     const res = await fetch(url)
     if (!res.ok) throw new Error('Direct Weatherbit call failed')
-    return res.json()
+    const dj = res.json()
+
+    return (dj.data || []).slice(0, 5).map(d => {
+        const max = typeof d.max_temp === 'number' ? Math.round(d.max_temp) : 0
+        const min = typeof d.min_temp === 'number' ? Math.round(d.min_temp) : 0
+        const avg = Math.round((max + min) / 2)
+        return {date: d.valid_date, avg, max, min}
+    })
 }
 
 export default function Forecast() {
@@ -34,26 +40,12 @@ export default function Forecast() {
             if (j && j.days && j.days.length > 0) {
                 setData(j)
             } else {
-
-                const dj = await fetchDirectFromWeatherbit(city)
-                const mapped = (dj.data || []).slice(0, 5).map(d => {
-                    const max = typeof d.max_temp === 'number' ? Math.round(d.max_temp) : 0
-                    const min = typeof d.min_temp === 'number' ? Math.round(d.min_temp) : 0
-                    const avg = Math.round((max + min) / 2)
-                    return {date: d.valid_date, avg, max, min}
-                })
+                const mapped = await fetchDirectFromWeatherbit(city)
                 setData({city, days: mapped})
             }
         } catch (e) {
             try {
-                const dj = await fetchDirectFromWeatherbit(city)
-                const mapped = (dj.data || []).slice(0, 5).map(d => {
-                    let max = 0, min = 0
-                    if (typeof d.max_temp === 'number') max = Math.round(d.max_temp)
-                    if (typeof d.min_temp === 'number') min = Math.round(d.min_temp)
-                    const avg = Math.round((max + min) / 2)
-                    return {date: d.valid_date, avg, max, min}
-                })
+                const mapped = await fetchDirectFromWeatherbit(city)
                 setData({city, days: mapped})
             } catch (e2) {
                 setError('Unable to load forecast from both backend and direct API.')
