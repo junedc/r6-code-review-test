@@ -16,9 +16,9 @@ class WeatherService
             return ['city' => $city, 'days' => [], 'error' => 'Invalid city'];
         }
 
-        $url = $this->baseUrl . '?city=' . urlencode($normalizedCity) . ',AU&days=5&key=' . urlencode($this->apiKey);
+        $url = config('constant.weatherbit_base_url') . '?city=' . urlencode($normalizedCity) . ',AU&days=5&key=' . urlencode(config('constant.weatherbit_forecast_key'));
 
-        $response = Http::get($url)->throw();
+        $response = Http::get($url);
         if (!$response->ok()) {
             return ['city' => $city, 'days' => [], 'error' => 'API error'];
         }

@@ -60,3 +60,7 @@ php artisan forecast Brisbane "Gold Coast" "Sunshine Coast"
 
 - Laravel (PHP) backend, Vite + React frontend.
 - No additional CSS framework beyond basic inline styles.
+
+
+
+node v20
