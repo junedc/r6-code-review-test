@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Http;
 
 class WeatherService
 {
+
     public function fetchFiveDayForecast(string $city): array
     {
         $normalizedCity = $this->normalizeCityName($city);

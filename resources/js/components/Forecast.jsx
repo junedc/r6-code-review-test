@@ -9,6 +9,7 @@ async function fetchDirectFromWeatherbit(city) {
     if (city.toLowerCase() === 'goldcoast') c = 'Gold Coast'
     if (city.toLowerCase() === 'sunshinecoast') c = 'Sunshine Coast'
 
+
     const url = `${FRONT_END_BASE_URL}?city=${encodeURIComponent(c)},AU&days=5&key=${encodeURIComponent(FRONTEND_WEATHERBIT_API_KEY)}`
     const res = await fetch(url)
     if (!res.ok) throw new Error('Direct Weatherbit call failed')
@@ -27,12 +28,13 @@ export default function Forecast() {
         setData(null)
 
         try {
-            const r = await fetch(`http://localhost:8000/api/forecast?city=${encodeURIComponent(city)}`)
-            if (!r.ok) throw new Error('Backend failed xxx')
+            const r = await fetch(`/api/forecast?city=${encodeURIComponent(city)}`)
+            if (!r.ok) throw new Error('Backend failed')
             const j = await r.json()
             if (j && j.days && j.days.length > 0) {
                 setData(j)
             } else {
+
                 const dj = await fetchDirectFromWeatherbit(city)
                 const mapped = (dj.data || []).slice(0, 5).map(d => {
                     const max = typeof d.max_temp === 'number' ? Math.round(d.max_temp) : 0

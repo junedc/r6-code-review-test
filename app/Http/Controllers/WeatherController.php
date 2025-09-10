@@ -8,9 +8,13 @@ use Illuminate\Support\Facades\Log;
 
 class WeatherController extends Controller
 {
-    public function authorize(): bool
+    public function getDailyForecast(Request $request): array
     {
-        return true;
+        $data = $request->all();
+        $city = data_get($data, 'city');
+
+        $weatherService = new WeatherService();
+        return $weatherService->fetchFiveDayForecast($city);
     }
 
     public function getDailyForecast($city): array
