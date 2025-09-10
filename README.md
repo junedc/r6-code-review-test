@@ -1,4 +1,4 @@
-# Weather Forecast (Junior Dev Test )
+# Weather Forecast
 
 This project provides a 5-day weather forecast with:
 - A web UI (React + Vite inside Laravel) with a dropdown for **Brisbane**, **Gold Coast**, **Sunshine Coast** that reactively updates.

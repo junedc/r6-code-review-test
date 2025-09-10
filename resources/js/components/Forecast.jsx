@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 
-const FRONTEND_WEATHERBIT_API_KEY = import.meta.env.VITE_WEATHERBIT_FORECAST_KEY
-const FRONT_END_BASE_URL = import.meta.env.VITE_WEATHERBIT_BASE_URL
+const WEATHERBIT_API_KEY = import.meta.env.VITE_WEATHERBIT_FORECAST_KEY
+const WEATHERBIT_BASE_URL = import.meta.env.VITE_WEATHERBIT_BASE_URL
 
 async function fetchDirectFromWeatherbit(city) {
     let c = city
@@ -10,7 +10,7 @@ async function fetchDirectFromWeatherbit(city) {
     if (city.toLowerCase() === 'sunshinecoast') c = 'Sunshine Coast'
 
 
-    const url = `${FRONT_END_BASE_URL}?city=${encodeURIComponent(c)},AU&days=5&key=${encodeURIComponent(FRONTEND_WEATHERBIT_API_KEY)}`
+    const url = `${WEATHERBIT_BASE_URL}?city=${encodeURIComponent(c)},AU&days=5&key=${encodeURIComponent(WEATHERBIT_API_KEY)}`
     const res = await fetch(url)
     if (!res.ok) throw new Error('Direct Weatherbit call failed')
     return res.json()
